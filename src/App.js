@@ -1,6 +1,12 @@
 import "./App.css";
 import { useState } from "react";
+import { useCallback } from "react";
+import { useMemo } from "react";
 import Counter from "../src/Counter";
+function CounterButton({ event, solve, input }) {
+  console.log("BUTTON IS RENDERED");
+  return <button onClick={(event) => solve(event, input)}>Submit</button>;
+}
 function SetCounter({ solve }) {
   const [input, handleInputChange] = useState("");
   console.log("Set Counter is rendered");
@@ -14,19 +20,30 @@ function SetCounter({ solve }) {
           onChange={(event) => handleInputChange(event.target.value)}
         ></input>
         <br></br>
-        <button onClick={(event) => solve(event, input)}>Submit</button>
+        <CounterButton
+          solve={solve}
+          input={input}
+          onClick={(event) => solve(event, input)}
+        ></CounterButton>
       </form>
     </div>
   );
 }
+function calc(count) {
+  count *= 100;
+}
 function App() {
   console.log("APP IS RENDERED");
   const [counter, handleCounter] = useState(0);
+  const [count, handle_random_count] = useState(null);
+  const calculate_random = useMemo(() => {
+    calc(count);
+  }, [count]);
 
-  function solve(event, input) {
+  const solve = useCallback((event, input) => {
     event.preventDefault();
     handleCounter(input);
-  }
+  }, []);
   return (
     <div>
       <Counter counter={counter}> </Counter>
