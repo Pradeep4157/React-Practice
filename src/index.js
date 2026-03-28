@@ -3,13 +3,10 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import AppContext from "../src/store/app-context";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <AppContext value={{ message: "HELLO THERE..." }}>
-      <App />
-    </AppContext>
+    <App />
   </React.StrictMode>,
 );
 

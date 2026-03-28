@@ -4,3 +4,4 @@ const Counter = memo(function Counter({ counter }) {
   return <div>Counter : {counter}</div>;
 });
 export default Counter;
+  
