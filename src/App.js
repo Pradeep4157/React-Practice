@@ -15,22 +15,20 @@
 
 
 */
-import AppContext from "../src/store/app-context";
+
 import { useContext } from "react";
 import { useState } from "react";
 import Login from "../src/component/Login";
+import Logout from "../src/component/Logout";
 import AppProvider from "../src/store/AppProvider";
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
-    <div
-      value={{
-        isLoggedIn: isLoggedIn,
-        changeLogin: setIsLoggedIn,
-      }}
-    >
-      <Login />
-    </div>
+    <AppProvider>
+      <div>
+        <Login />
+        <Logout />
+      </div>
+    </AppProvider>
   );
 }
 
