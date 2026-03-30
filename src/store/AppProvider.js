@@ -1,15 +1,41 @@
-import { useState } from "react";
+import { useState, useReducer } from "react";
 import AppContext from "../store/app-context";
+function authReducer(state, action) {
+  if (action.type === "Login") {
+    return {
+      isLoggedIn: true,
+    };
+  } else if (action.type === "Logout") {
+    return {
+      isLoggedIn: false,
+    };
+  } else {
+    return state;
+  }
+}
+const storedLoginStatus = localStorage.getItem("isLoggedIn");
+const initialAuthState = {
+  isLoggedIn: storedLoginStatus === "1" ? true : false,
+};
 const AppProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [authState, dispatchAuth] = useReducer(authReducer, initialAuthState);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const handleLogin = () => {
-    setIsLoggedIn(true);
+    // setIsLoggedIn(true);
+    localStorage.setItem("isLoggedIn", "1");
+    dispatchAuth({
+      type: "Login",
+    });
   };
   const handleLogout = () => {
-    setIsLoggedIn(false);
+    // setIsLoggedIn(false);
+    localStorage.setItem("isLoggedIn", "0");
+    dispatchAuth({
+      type: "Logout",
+    });
   };
   const appContextValue = {
-    isLoggedIn: isLoggedIn,
+    isLoggedIn: authState.isLoggedIn,
     login: handleLogin,
     logout: handleLogout,
   };
