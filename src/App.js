@@ -20,13 +20,14 @@ import { useContext } from "react";
 import { useState } from "react";
 import Login from "../src/component/Login";
 import Logout from "../src/component/Logout";
+import "./App.css";
 import AppProvider from "../src/store/AppProvider";
+
 function App() {
   return (
     <AppProvider>
       <div>
-        <Login />
-        <Logout />
+        <Login></Login>
       </div>
     </AppProvider>
   );
