@@ -13,6 +13,14 @@
 
 
 
+      CLIENT-SERVER ARCH : 
+
+      front -> backend -> db ops
+
+      
+
+
+
 
 */
 
