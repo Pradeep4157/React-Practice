@@ -17,7 +17,7 @@
 
       front -> backend -> db ops
 
-      
+
 
 
 
@@ -26,18 +26,47 @@
 
 import { useContext } from "react";
 import { useState } from "react";
-import Login from "../src/component/Login";
-import Logout from "../src/component/Logout";
+import { useEffect } from "react";
 import "./App.css";
 import AppProvider from "../src/store/AppProvider";
-
+const link = "https://jsonplaceholder.typicode.com/todos/";
 function App() {
+  const [Todos, setTodos] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const handleFetchTodos = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(link, { method: "GET" });
+      if (!response.ok) throw new Error();
+
+      const data = await response.json();
+
+      if (data.length === 0) {
+        throw new Error("No Todos found");
+      }
+      setLoading(false);
+      setTodos(data);
+    } catch (error) {
+      console.log("we reached here !!");
+      return error;
+    }
+  };
+  useEffect(() => {
+    handleFetchTodos();
+  }, []);
   return (
-    <AppProvider>
-      <div>
-        <Login></Login>
-      </div>
-    </AppProvider>
+    <div>
+      <button onClick={handleFetchTodos}>CLICK ME!!</button>
+      {loading ? (
+        <p>"Loading.."</p>
+      ) : (
+        <ul>
+          {Todos.map((todo) => (
+            <li key={todo.title}>{todo.title}</li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }
 
