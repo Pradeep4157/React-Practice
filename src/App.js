@@ -27,6 +27,7 @@
 import { useContext } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
+import AppTodo from "../src/AddTodo.js";
 import "./App.css";
 import AppProvider from "../src/store/AppProvider";
 const link = "https://jsonplaceholder.typicode.com/todos/";
@@ -56,6 +57,7 @@ function App() {
   }, []);
   return (
     <div>
+      <AppTodo />
       <button onClick={handleFetchTodos}>CLICK ME!!</button>
       {loading ? (
         <p>"Loading.."</p>
