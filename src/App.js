@@ -48,7 +48,6 @@ function App() {
       setLoading(false);
       setTodos(data);
     } catch (error) {
-      console.log("we reached here !!");
       return error;
     }
   };
