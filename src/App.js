@@ -39,34 +39,37 @@
 
 import { useContext, useReducer } from "react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import AppTodo from "../src/AddTodo.js";
-import "./App.css";
-import AppProvider from "../src/store/AppProvider";
-const link = "https://jsonplaceholder.typicode.com/todos/";
+// import "./App.css";
+// import AppProvider from "../src/store/AppProvider";
+// const link = "https://jsonplaceholder.typicode.com/todos/";
 function App() {
-  const [Todos, setTodos] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const handleFetchTodos = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch(link, { method: "GET" });
-      if (!response.ok) throw new Error();
+  const new_state = useSelector((state) => state.counter);
+  console.log(new_state);
+  //   const [Todos, setTodos] = useState([]);
+  //   const [loading, setLoading] = useState(false);
+  //   const handleFetchTodos = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const response = await fetch(link, { method: "GET" });
+  //       if (!response.ok) throw new Error();
 
-      const data = await response.json();
+  //       const data = await response.json();
 
-      if (data.length === 0) {
-        throw new Error("No Todos found");
-      }
-      setLoading(false);
-      setTodos(data);
-    } catch (error) {
-      return error;
-    }
-  };
-  useEffect(() => {
-    handleFetchTodos();
-  }, []);
+  //       if (data.length === 0) {
+  //         throw new Error("No Todos found");
+  //       }
+  //       setLoading(false);
+  //       setTodos(data);
+  //     } catch (error) {
+  //       return error;
+  //     }
+  //   };
+  //   useEffect(() => {
+  //     handleFetchTodos();
+  //   }, []);
 
   function reducer(state, action) {
     if (action.type === "increment") {

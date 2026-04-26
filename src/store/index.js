@@ -11,7 +11,8 @@ const counterSlice = createSlice({
     decrement() {},
   },
 });
-function Index() {
-  return <div></div>;
-}
-export default Index;
+const store = configureStore({
+  reducer: counterSlice.reducer,
+});
+
+export default store;
