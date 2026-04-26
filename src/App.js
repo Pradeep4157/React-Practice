@@ -18,13 +18,26 @@
       front -> backend -> db ops
 
 
+      now i have to imp counter.. 
+
+
+      we need useReducer for that ?
+
+
+      or simply useState will do  ?
+
+
+      we will imp both ways.. 
+
+
+
 
 
 
 
 */
 
-import { useContext } from "react";
+import { useContext, useReducer } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import AppTodo from "../src/AddTodo.js";
@@ -54,9 +67,35 @@ function App() {
   useEffect(() => {
     handleFetchTodos();
   }, []);
+
+  function reducer(state, action) {
+    if (action.type === "increment") {
+      return { count: state.count + 1 };
+    } else if (action.type === "decrement") {
+      return { count: state.count - 1 };
+    }
+  }
+  const [state, dispatch] = useReducer(reducer, { count: 0 });
+
   return (
     <div>
-      <AppTodo />
+      <div>{state.count}</div>
+      <button
+        onClick={() => {
+          dispatch({ type: "increment" });
+        }}
+      >
+        Increment Button
+      </button>
+      <br />
+      <button
+        onClick={() => {
+          dispatch({ type: "decrement" });
+        }}
+      >
+        Decrement Button
+      </button>
+      {/* <AppTodo />
       <button onClick={handleFetchTodos}>CLICK ME!!</button>
       {loading ? (
         <p>"Loading.."</p>
@@ -66,7 +105,7 @@ function App() {
             <li key={todo.title}>{todo.title}</li>
           ))}
         </ul>
-      )}
+      )} */}
     </div>
   );
 }
