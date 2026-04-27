@@ -31,17 +31,21 @@
 
 
 
+      cont from 9:08
+
+
 
 
 
 
 */
 
-import { useContext, useReducer } from "react";
+import { useContext, useReducer, useCallback } from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import AppTodo from "../src/AddTodo.js";
+import { counterActions } from "./store/index.js";
 // import "./App.css";
 // import AppProvider from "../src/store/AppProvider";
 // const link = "https://jsonplaceholder.typicode.com/todos/";
@@ -78,26 +82,22 @@ function App() {
       return { count: state.count - 1 };
     }
   }
-  const [state, dispatch] = useReducer(reducer, { count: 0 });
+
+  const Dispatch = useDispatch();
+  const handleIncrement = useCallback(() => {
+    Dispatch(counterActions.increment());
+  }, []);
+  const handleDecrement = useCallback(() => {
+    Dispatch(counterActions.decrement());
+  }, []);
+  const state = useSelector((state) => state.counter);
 
   return (
     <div>
-      <div>{state.count}</div>
-      <button
-        onClick={() => {
-          dispatch({ type: "increment" });
-        }}
-      >
-        Increment Button
-      </button>
+      <div>{state}</div>
+      <button onClick={handleIncrement}>Increment Button</button>
       <br />
-      <button
-        onClick={() => {
-          dispatch({ type: "decrement" });
-        }}
-      >
-        Decrement Button
-      </button>
+      <button onClick={handleDecrement}>Decrement Button</button>
       {/* <AppTodo />
       <button onClick={handleFetchTodos}>CLICK ME!!</button>
       {loading ? (
