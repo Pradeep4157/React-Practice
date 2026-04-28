@@ -13,6 +13,9 @@ const counterSlice = createSlice({
     decrement(state) {
       state.counter--;
     },
+    set(state, action) {
+      state.counter = action.payload;
+    },
   },
 });
 export const counterActions = counterSlice.actions;

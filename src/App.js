@@ -39,7 +39,7 @@
 
 
 */
-
+import { useRef } from "react";
 import { useContext, useReducer, useCallback } from "react";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -82,7 +82,7 @@ function App() {
       return { count: state.count - 1 };
     }
   }
-
+  const inputRef = useRef();
   const Dispatch = useDispatch();
   const handleIncrement = useCallback(() => {
     Dispatch(counterActions.increment());
@@ -90,6 +90,9 @@ function App() {
   const handleDecrement = useCallback(() => {
     Dispatch(counterActions.decrement());
   }, []);
+  const handleSet = useCallback(() => {
+    Dispatch(counterActions.set(inputRef.current.value));
+  });
   const state = useSelector((state) => state.counter);
 
   return (
@@ -98,6 +101,11 @@ function App() {
       <button onClick={handleIncrement}>Increment Button</button>
       <br />
       <button onClick={handleDecrement}>Decrement Button</button>
+      <br></br>
+      <div>
+        <input type="number" ref={inputRef}></input>
+        <button onClick={handleSet}>Set</button>
+      </div>
       {/* <AppTodo />
       <button onClick={handleFetchTodos}>CLICK ME!!</button>
       {loading ? (
